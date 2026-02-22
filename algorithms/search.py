@@ -28,7 +28,47 @@ def depthFirstSearch(problem: SearchProblem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    # TODO: Add your code here
+    visited = []
+    
+    path = []
+    
+    stack = utils.Stack()
+    
+    start = problem.getStartState()
+    
+    visited.append(start)
+    
+    if not problem.isGoalState(start):
+        found = False
+        latest = start
+
+        
+        while not found:
+            advanced=False
+            paths = problem.getSuccessors(latest)
+            for i in paths:
+                
+                if i[0] not in visited:
+                    
+                    stack.push((i[0],i[1]))
+                    visited.append(i[0])
+                    latest = i[0]
+                    advanced = True
+                    break
+                
+            if problem.isGoalState(latest):
+                found = True
+                
+            elif not advanced:
+                stack.pop()
+                latest = stack.list[-1][0]
+        
+        while not stack.isEmpty():
+            path.insert(0,stack.pop()[1])
+        return path
+        
+    else:
+        return path
     utils.raiseNotDefined()
 
 
@@ -36,7 +76,41 @@ def breadthFirstSearch(problem: SearchProblem):
     """
     Search the shallowest nodes in the search tree first.
     """
-    # TODO: Add your code here
+    queue = utils.Queue()
+    
+    visited = []
+    
+    start = problem.getStartState()
+    
+    
+    
+    queue.push( (start,[]) ) #Estado, Path
+    
+
+    
+    if not problem.isGoalState(start):
+        
+        while not queue.isEmpty():
+            state, path = queue.pop()
+            
+            
+            
+            neighbors = problem.getSuccessors(state)
+            
+            for i in neighbors:
+                if not i[0] in visited:
+                    newPath = path + [i[1]]
+                    queue.push((i[0],newPath))
+                    visited.append(i[0])
+
+            if problem.isGoalState(state):
+                return path
+            
+            
+            
+
+    else: 
+        return []
     utils.raiseNotDefined()
 
 
