@@ -51,4 +51,17 @@ def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
     - Balance heuristic strength vs. computation time (do experiments!)
     """
     # TODO: Add your code here
+    inicio, sobrevivientes = state 
+    restantes = sobrevivientes.asList()
+
+    if len(restantes) == 0: #cuando ya no hay sobrevivientes restantes
+        return 0 
+    
+    cola = utils.PriorityQueue() #Encontrar el sobreviviente más cercano con una cola de prioridad
+
+    for i in restantes:
+        distancia = abs(inicio[0] -i[0]) + abs(inicio[1] - i[1]) #calcula la distancia entre el robot y el sobreviviente
+        cola.push(distancia, distancia) #guarda la distancia en la cola, se usa la de prioridad para obtener primero el de menor distancia
+
+    return cola.pop() #retorna el sobreviviente más cercano, osea el elemento de menor valor de la cola 
     utils.raiseNotDefined()
