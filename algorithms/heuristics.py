@@ -64,4 +64,3 @@ def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
         cola.push(distancia, distancia) #guarda la distancia en la cola, se usa la de prioridad para obtener primero el de menor distancia
 
     return cola.pop() #retorna el sobreviviente más cercano, osea el elemento de menor valor de la cola 
-    utils.raiseNotDefined()
